@@ -9,7 +9,7 @@ public class Operacion implements Runnable {
     private String tipo;
     private double umbral; //Precio en el cual se quiera comprar o vender
     private double cantidad;
-    private Thread hiloEjecutor;
+    private transient Thread hiloEjecutor;
 
     public Operacion(String tipo, double umbral, double cantidad) {
         setTipo(tipo);

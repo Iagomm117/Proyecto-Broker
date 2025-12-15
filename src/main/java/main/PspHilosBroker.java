@@ -1,6 +1,12 @@
 package main;
 
 import controller.MainFrameController;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.nio.file.Files;
+import model.Broker;
+import model.ListaAgentes;
+import model.PersistenciaDatos;
 import view.MainFrame;
 
 /**
@@ -9,7 +15,7 @@ import view.MainFrame;
  */
 public class PspHilosBroker {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws FileNotFoundException {
         //Tener persistencia de usuarios/agentes y operaciones
         //RECUPERAR PRECIO Y LOS VALORES ANTERIORES
         
@@ -25,7 +31,18 @@ public class PspHilosBroker {
         //Se sube el precio cuando no queda cantidad y compra / sube el precio cuando se producen ventas   
         
         MainFrame view = new MainFrame();
-        MainFrameController controller = new MainFrameController(view);
+        ListaAgentes agentes = new ListaAgentes();
+        Broker broker = null;
+        File file = new File("broker.json");
+        if(!Files.exists(file.toPath())){
+             
+             broker = new Broker(200,0,agentes);
+        }
+        else{
+           broker = PersistenciaDatos.leerDatos(); 
+        }
+        
+        MainFrameController controller = new MainFrameController(view,broker);
         view.setVisible(true);
     }
 }

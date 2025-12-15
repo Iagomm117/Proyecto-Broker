@@ -1,6 +1,9 @@
+model\PersistenciaDatos.class
 controller\MainFrameController$1.class
 model\Operacion.class
+model\ListaAgentes.class
+model\Agente.class
+model\Broker.class
 view\MainFrame.class
 controller\MainFrameController.class
 main\PspHilosBroker.class
-model\Agente.class

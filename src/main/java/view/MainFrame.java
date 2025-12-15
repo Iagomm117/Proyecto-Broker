@@ -2,6 +2,8 @@ package view;
 
 import java.awt.event.ActionListener;
 import javax.swing.DefaultListModel;
+import javax.swing.event.ChangeListener;
+import model.Agente;
 
 /**
  *
@@ -12,6 +14,8 @@ public class MainFrame extends javax.swing.JFrame {
     /**
      * Creates new form MainFrame
      */
+    private static DefaultListModel modeloAgentes = new DefaultListModel();
+
     public MainFrame() {
         initComponents();
     }
@@ -25,7 +29,7 @@ public class MainFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jTabbedPane = new javax.swing.JTabbedPane();
+        ventanasTabbedPane = new javax.swing.JTabbedPane();
         graficaPanel = new javax.swing.JPanel();
         agentesPanel = new javax.swing.JPanel();
         jScrollPane = new javax.swing.JScrollPane();
@@ -36,6 +40,8 @@ public class MainFrame extends javax.swing.JFrame {
         saldoLabel = new javax.swing.JLabel();
         addAgenteButton = new javax.swing.JButton();
         operacionesPanel = new javax.swing.JPanel();
+        jComboBox1 = new javax.swing.JComboBox<>();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -50,7 +56,7 @@ public class MainFrame extends javax.swing.JFrame {
             .addGap(0, 396, Short.MAX_VALUE)
         );
 
-        jTabbedPane.addTab("Grafica", graficaPanel);
+        ventanasTabbedPane.addTab("Grafica", graficaPanel);
 
         jScrollPane.setViewportView(agenteList);
 
@@ -108,20 +114,32 @@ public class MainFrame extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jTabbedPane.addTab("Agentes", agentesPanel);
+        ventanasTabbedPane.addTab("Agentes", agentesPanel);
+
+        jLabel1.setText("Agente: ");
 
         javax.swing.GroupLayout operacionesPanelLayout = new javax.swing.GroupLayout(operacionesPanel);
         operacionesPanel.setLayout(operacionesPanelLayout);
         operacionesPanelLayout.setHorizontalGroup(
             operacionesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 742, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, operacionesPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 78, Short.MAX_VALUE)
+                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 608, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         operacionesPanelLayout.setVerticalGroup(
             operacionesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 396, Short.MAX_VALUE)
+            .addGroup(operacionesPanelLayout.createSequentialGroup()
+                .addGap(29, 29, 29)
+                .addGroup(operacionesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
+                .addContainerGap(341, Short.MAX_VALUE))
         );
 
-        jTabbedPane.addTab("Operaciones", operacionesPanel);
+        ventanasTabbedPane.addTab("Operaciones", operacionesPanel);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -129,49 +147,60 @@ public class MainFrame extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTabbedPane)
+                .addComponent(ventanasTabbedPane)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTabbedPane)
+                .addComponent(ventanasTabbedPane)
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    public void addAgenteButtonActionListener(ActionListener al){
+    public void addAgenteButtonActionListener(ActionListener al) {
         this.addAgenteButton.addActionListener(al);
     }
-    
-    public String getTextUsuarioTextField(){
+
+    public String getTextUsuarioTextField() {
         return this.usuarioTextField.getText();
     }
-    
-    public String getSaldoSpinner(){
+
+    public String getSaldoSpinner() {
         return this.saldoSpinner.getValue().toString();
     }
-    
-    public void addListItem(String nombre, double saldo){
-        DefaultListModel modelo = new DefaultListModel();
-        modelo.addElement(nombre + " " + saldo);
-        this.agenteList.setModel(modelo);
+
+    public void addListItemAgente(Agente agente) {
+        modeloAgentes.addElement(agente.toString());
+        this.agenteList.setModel(modeloAgentes);
     }
-    
+
+    public int getVentanaTabbedPane() {
+        if (this.ventanasTabbedPane.getSelectedIndex() < 0) {
+        }
+        return this.ventanasTabbedPane.getSelectedIndex();
+    }
+
+    public void addVentanasTabbedPaneChangeListener(ChangeListener al) {
+        this.ventanasTabbedPane.addChangeListener(al);
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addAgenteButton;
     private javax.swing.JList<String> agenteList;
     private javax.swing.JPanel agentesPanel;
     private javax.swing.JPanel graficaPanel;
+    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane;
-    private javax.swing.JTabbedPane jTabbedPane;
     private javax.swing.JPanel operacionesPanel;
     private javax.swing.JLabel saldoLabel;
     private javax.swing.JSpinner saldoSpinner;
     private javax.swing.JLabel usuarioLabel;
     private javax.swing.JTextField usuarioTextField;
+    private javax.swing.JTabbedPane ventanasTabbedPane;
     // End of variables declaration//GEN-END:variables
 }

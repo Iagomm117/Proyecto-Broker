@@ -1,11 +1,11 @@
 package model;
 
+
 /**
  *
  * @author dam2_alu08@inf.ald
  */
 public class Agente {
-
     private long id;
     private String nombre;
     private double saldo;
@@ -29,17 +29,20 @@ public class Agente {
         switch (tipo) {
             case "compra":
                 if (compra == null) {
-                    compra = new Operacion(tipo, limite, cantidad);
-                    
+                    compra = new Operacion(tipo, limite, cantidad);       
                 }else{
                     System.out.println("Ya existe una operacion de compra para el agente " + getNombre());
                     return false;
                 }
-
                 break;
             case "venta":
-                //Se crea nueva opercion asignada a venta
-
+                if(venta == null){
+                    venta = new Operacion(tipo,limite,cantidad);    
+                }
+                else{
+                    System.out.println("ya existe una operacion de venta para el agente" + getNombre());
+                    return false;
+                }
                 break;
             default:
                 return false;
@@ -89,7 +92,7 @@ public class Agente {
 
     @Override
     public String toString() {
-        return id + ", " + nombre + ", " + saldo + ", " + compra + ", " + venta;
+        return "id= " + id + ", usuario= " + nombre + ", saldo= " + saldo;
     }
 
     @Override
