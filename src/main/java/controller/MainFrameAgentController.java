@@ -15,12 +15,12 @@ import view.MainFrame;
  *
  * @author dam2_alu08@inf.ald
  */
-public class MainFrameController {
+public class MainFrameAgentController {
 
     private final MainFrame view;
     private final Broker model;
 
-    public MainFrameController(MainFrame view, Broker model) {
+    public MainFrameAgentController(MainFrame view, Broker model) {
         this.view = view;
         this.model = model;
         this.initComponents();

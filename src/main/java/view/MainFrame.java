@@ -1,9 +1,10 @@
 package view;
 
 import java.awt.event.ActionListener;
+import java.io.FileNotFoundException;
 import javax.swing.DefaultListModel;
-import javax.swing.event.ChangeListener;
 import model.Agente;
+import org.jfree.chart.ChartPanel;
 
 /**
  *
@@ -16,8 +17,9 @@ public class MainFrame extends javax.swing.JFrame {
      */
     private static DefaultListModel modeloAgentes = new DefaultListModel();
 
-    public MainFrame() {
+    public MainFrame() throws FileNotFoundException {
         initComponents();
+        panelGrafico();
     }
 
     /**
@@ -40,8 +42,17 @@ public class MainFrame extends javax.swing.JFrame {
         saldoLabel = new javax.swing.JLabel();
         addAgenteButton = new javax.swing.JButton();
         operacionesPanel = new javax.swing.JPanel();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jLabel1 = new javax.swing.JLabel();
+        agentesComboBox = new javax.swing.JComboBox<>();
+        agenteLabel = new javax.swing.JLabel();
+        typeLabel = new javax.swing.JLabel();
+        tipoComboBox = new javax.swing.JComboBox<>();
+        precioLabel = new javax.swing.JLabel();
+        precioSpinner = new javax.swing.JSpinner();
+        cantidadLabel = new javax.swing.JLabel();
+        cantidadSpinner = new javax.swing.JSpinner();
+        saveButton = new javax.swing.JButton();
+        compraLabel = new javax.swing.JLabel();
+        ventaLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -49,7 +60,7 @@ public class MainFrame extends javax.swing.JFrame {
         graficaPanel.setLayout(graficaPanelLayout);
         graficaPanelLayout.setHorizontalGroup(
             graficaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 742, Short.MAX_VALUE)
+            .addGap(0, 753, Short.MAX_VALUE)
         );
         graficaPanelLayout.setVerticalGroup(
             graficaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -84,7 +95,7 @@ public class MainFrame extends javax.swing.JFrame {
                                 .addComponent(saldoLabel)))
                         .addGap(18, 18, 18)
                         .addGroup(agentesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(usuarioTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 334, Short.MAX_VALUE)
+                            .addComponent(usuarioTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 353, Short.MAX_VALUE)
                             .addComponent(saldoSpinner)))
                     .addGroup(agentesPanelLayout.createSequentialGroup()
                         .addComponent(addAgenteButton)
@@ -106,7 +117,7 @@ public class MainFrame extends javax.swing.JFrame {
                         .addGroup(agentesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(saldoSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(saldoLabel))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 221, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 223, Short.MAX_VALUE)
                         .addComponent(addAgenteButton))
                     .addGroup(agentesPanelLayout.createSequentialGroup()
                         .addContainerGap()
@@ -116,17 +127,58 @@ public class MainFrame extends javax.swing.JFrame {
 
         ventanasTabbedPane.addTab("Agentes", agentesPanel);
 
-        jLabel1.setText("Agente: ");
+        agenteLabel.setText("Agente: ");
+
+        typeLabel.setText("Tipo:");
+
+        tipoComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "--Selecciona una opcion--", "Compra", "Venta" }));
+
+        precioLabel.setText("Introduce el precio:");
+
+        cantidadLabel.setText("Introduce la cantidad:");
+
+        saveButton.setText("Guardar");
+
+        compraLabel.setText("");
+
+        ventaLabel.setText("");
 
         javax.swing.GroupLayout operacionesPanelLayout = new javax.swing.GroupLayout(operacionesPanel);
         operacionesPanel.setLayout(operacionesPanelLayout);
         operacionesPanelLayout.setHorizontalGroup(
             operacionesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, operacionesPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 78, Short.MAX_VALUE)
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 608, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(operacionesPanelLayout.createSequentialGroup()
+                .addGroup(operacionesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(operacionesPanelLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(operacionesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(operacionesPanelLayout.createSequentialGroup()
+                                .addGroup(operacionesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(agenteLabel)
+                                    .addComponent(typeLabel)
+                                    .addComponent(precioLabel))
+                                .addGroup(operacionesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(operacionesPanelLayout.createSequentialGroup()
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addGroup(operacionesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(agentesComboBox, 0, 608, Short.MAX_VALUE)
+                                            .addComponent(tipoComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                    .addGroup(operacionesPanelLayout.createSequentialGroup()
+                                        .addGap(31, 31, 31)
+                                        .addComponent(precioSpinner))))
+                            .addGroup(operacionesPanelLayout.createSequentialGroup()
+                                .addComponent(cantidadLabel)
+                                .addGap(18, 18, 18)
+                                .addComponent(cantidadSpinner))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, operacionesPanelLayout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(saveButton))))
+                    .addGroup(operacionesPanelLayout.createSequentialGroup()
+                        .addGap(336, 336, 336)
+                        .addGroup(operacionesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(ventaLabel)
+                            .addComponent(compraLabel))
+                        .addGap(0, 341, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         operacionesPanelLayout.setVerticalGroup(
@@ -134,9 +186,27 @@ public class MainFrame extends javax.swing.JFrame {
             .addGroup(operacionesPanelLayout.createSequentialGroup()
                 .addGap(29, 29, 29)
                 .addGroup(operacionesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
-                .addContainerGap(341, Short.MAX_VALUE))
+                    .addComponent(agentesComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(agenteLabel))
+                .addGap(18, 18, 18)
+                .addGroup(operacionesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(typeLabel)
+                    .addComponent(tipoComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(22, 22, 22)
+                .addGroup(operacionesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(precioLabel)
+                    .addComponent(precioSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(operacionesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cantidadLabel)
+                    .addComponent(cantidadSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(38, 38, 38)
+                .addComponent(compraLabel)
+                .addGap(18, 18, 18)
+                .addComponent(ventaLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 84, Short.MAX_VALUE)
+                .addComponent(saveButton)
+                .addContainerGap())
         );
 
         ventanasTabbedPane.addTab("Operaciones", operacionesPanel);
@@ -165,6 +235,55 @@ public class MainFrame extends javax.swing.JFrame {
         this.addAgenteButton.addActionListener(al);
     }
 
+    public void panelGrafico() throws FileNotFoundException {
+        Grafico grafico = new Grafico();
+        ChartPanel panel = grafico.crearChartPanel();
+        graficaPanel.setLayout(new java.awt.BorderLayout());
+        graficaPanel.removeAll();
+        graficaPanel.add(panel, java.awt.BorderLayout.CENTER);
+        graficaPanel.revalidate();
+        this.graficaPanel.repaint();
+    }
+
+    public void addSaveButtonActionListener(ActionListener al) {
+        this.saveButton.addActionListener(al);
+    }
+
+    public void statusSaveButton(boolean bol) {
+        this.saveButton.setEnabled(bol);
+    }
+
+    public void statusSpinners(boolean bol) {
+        this.precioLabel.setVisible(bol);
+        this.precioSpinner.setVisible(bol);
+        this.cantidadSpinner.setVisible(bol);
+        this.cantidadLabel.setVisible(bol);
+    }
+
+    public String getCantidadSpinnerValeu() {
+        return this.cantidadSpinner.getValue().toString();
+    }
+
+    public String getPrecioSpinnerValue() {
+        return this.precioSpinner.getValue().toString();
+    }
+
+    public void addItemComboBox(String item) {
+        this.agentesComboBox.addItem(item);
+    }
+
+    public String getAgentesComboBoxContent() {
+        return this.agentesComboBox.getItemAt(agentesComboBox.getSelectedIndex());
+    }
+
+    public String getTipoComboBoxContent() {
+        return this.tipoComboBox.getItemAt(tipoComboBox.getSelectedIndex());
+    }
+
+    public int getTipoComboBoxSelection() {
+        return this.tipoComboBox.getSelectedIndex();
+    }
+
     public String getTextUsuarioTextField() {
         return this.usuarioTextField.getText();
     }
@@ -184,23 +303,28 @@ public class MainFrame extends javax.swing.JFrame {
         return this.ventanasTabbedPane.getSelectedIndex();
     }
 
-    public void addVentanasTabbedPaneChangeListener(ChangeListener al) {
-        this.ventanasTabbedPane.addChangeListener(al);
-    }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addAgenteButton;
+    private javax.swing.JLabel agenteLabel;
     private javax.swing.JList<String> agenteList;
+    private javax.swing.JComboBox<String> agentesComboBox;
     private javax.swing.JPanel agentesPanel;
+    private javax.swing.JLabel cantidadLabel;
+    private javax.swing.JSpinner cantidadSpinner;
+    private javax.swing.JLabel compraLabel;
     private javax.swing.JPanel graficaPanel;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane;
     private javax.swing.JPanel operacionesPanel;
+    private javax.swing.JLabel precioLabel;
+    private javax.swing.JSpinner precioSpinner;
     private javax.swing.JLabel saldoLabel;
     private javax.swing.JSpinner saldoSpinner;
+    private javax.swing.JButton saveButton;
+    private javax.swing.JComboBox<String> tipoComboBox;
+    private javax.swing.JLabel typeLabel;
     private javax.swing.JLabel usuarioLabel;
     private javax.swing.JTextField usuarioTextField;
+    private javax.swing.JLabel ventaLabel;
     private javax.swing.JTabbedPane ventanasTabbedPane;
     // End of variables declaration//GEN-END:variables
 }

@@ -40,7 +40,7 @@ public class Agente {
                     venta = new Operacion(tipo,limite,cantidad);    
                 }
                 else{
-                    System.out.println("ya existe una operacion de venta para el agente" + getNombre());
+                    System.out.println("Ya existe una operacion de venta para el agente" + getNombre());
                     return false;
                 }
                 break;

@@ -1,9 +1,12 @@
 model\PersistenciaDatos.class
-controller\MainFrameController$1.class
 model\Operacion.class
+controller\MainFrameAgentController.class
+controller\MainFrameGraficoController.class
 model\ListaAgentes.class
+controller\MainFrameAgentController$1.class
 model\Agente.class
 model\Broker.class
+controller\MainFrameOperationController.class
 view\MainFrame.class
-controller\MainFrameController.class
+view\Grafico.class
 main\PspHilosBroker.class

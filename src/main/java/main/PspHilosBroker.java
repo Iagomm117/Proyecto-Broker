@@ -1,6 +1,7 @@
 package main;
 
-import controller.MainFrameController;
+import controller.MainFrameAgentController;
+import controller.MainFrameGraficoController;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.nio.file.Files;
@@ -42,7 +43,8 @@ public class PspHilosBroker {
            broker = PersistenciaDatos.leerDatos(); 
         }
         
-        MainFrameController controller = new MainFrameController(view,broker);
+        MainFrameAgentController controller = new MainFrameAgentController(view,broker);
+        MainFrameGraficoController grafico = new MainFrameGraficoController(view);
         view.setVisible(true);
     }
 }
