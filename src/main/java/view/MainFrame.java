@@ -3,6 +3,7 @@ package view;
 import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
 import javax.swing.DefaultListModel;
+import javax.swing.JPanel;
 import model.Agente;
 import org.jfree.chart.ChartPanel;
 
@@ -19,7 +20,6 @@ public class MainFrame extends javax.swing.JFrame {
 
     public MainFrame() throws FileNotFoundException {
         initComponents();
-        panelGrafico();
     }
 
     /**
@@ -235,18 +235,16 @@ public class MainFrame extends javax.swing.JFrame {
         this.addAgenteButton.addActionListener(al);
     }
 
-    public void panelGrafico() throws FileNotFoundException {
-        Grafico grafico = new Grafico();
-        ChartPanel panel = grafico.crearChartPanel();
-        graficaPanel.setLayout(new java.awt.BorderLayout());
-        graficaPanel.removeAll();
-        graficaPanel.add(panel, java.awt.BorderLayout.CENTER);
-        graficaPanel.revalidate();
-        this.graficaPanel.repaint();
+    public JPanel panelGrafico(){
+        return this.graficaPanel;
     }
 
     public void addSaveButtonActionListener(ActionListener al) {
         this.saveButton.addActionListener(al);
+    }
+    
+    public void addTipoComboBoxActionListener(ActionListener al){
+        this.tipoComboBox.addActionListener(al);
     }
 
     public void statusSaveButton(boolean bol) {
@@ -258,6 +256,14 @@ public class MainFrame extends javax.swing.JFrame {
         this.precioSpinner.setVisible(bol);
         this.cantidadSpinner.setVisible(bol);
         this.cantidadLabel.setVisible(bol);
+    }
+    
+    public void setTextCompraLabel(String texto){
+        this.compraLabel.setText(texto);
+    }
+    
+    public void setTextVentaLabel(String texto){
+        this.ventaLabel.setText(texto);
     }
 
     public String getCantidadSpinnerValeu() {

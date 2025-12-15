@@ -26,12 +26,12 @@ public class MainFrameAgentController {
         this.initComponents();
         this.view.addAgenteButtonActionListener(this.setAddAgentButtonActionListener());
     }
-    
-    private void initComponents(){
+
+    private void initComponents() {
         for (int i = 0; i < model.getAgentes().getSize(); i++) {
             view.addListItemAgente(model.getAgentes().getAgente(i));
         }
-        
+
     }
 
     private ActionListener setAddAgentButtonActionListener() {
@@ -50,20 +50,23 @@ public class MainFrameAgentController {
                             } else {
                                 view.addListItemAgente(agente);
                                 model.getAgentes().addAgente(agente);
-                                PersistenciaDatos.guardarDatos(model);
+                                break;
                             }
                         }
-                    }
+                    }   
                 } else {
                     if (agente.getSaldo() > 0) {
-                        view.addListItemAgente(agente);
+                        view.addListItemAgente(agente); 
                         model.getAgentes().addAgente(agente);
-                        PersistenciaDatos.guardarDatos(model);
                     }
                 }
+                
+                PersistenciaDatos.guardarDatos(model);
+                
             }
+
         };
-        
+
         return al;
     }
 

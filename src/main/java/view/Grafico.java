@@ -20,8 +20,9 @@ import org.jfree.data.xy.XYDataset;
 public class Grafico extends JComponent{
     private final Broker broker;
 
-    public Grafico() throws FileNotFoundException {
-        this.broker = PersistenciaDatos.leerDatos();
+    public Grafico(Broker broker) throws FileNotFoundException {
+        this.broker = broker;
+        
     }
     public ChartPanel crearChartPanel() {
         final XYDataset dataset = createDataset();
