@@ -1,5 +1,7 @@
 package model;
 
+import java.io.FileNotFoundException;
+
 
 /**
  *
@@ -9,15 +11,19 @@ public class Agente {
     private long id;
     private String nombre;
     private double saldo;
+    private double cantidad;
     private Operacion compra;
     private Operacion venta;
+    private Broker broker;
 
-    public Agente(long id, String nombre, double saldo, Operacion compra, Operacion venta) {
+    public Agente(long id, String nombre, double saldo, Operacion compra, Operacion venta) throws FileNotFoundException {
         this.id = id;
         this.nombre = nombre;
         this.saldo = saldo;
+        this.cantidad = cantidad;
         this.compra = compra;
         this.venta = venta;
+        this.broker = PersistenciaDatos.leerDatos();
         
     }
 
@@ -25,11 +31,11 @@ public class Agente {
     }
     
 
-    public boolean nuevaOperacion(Agente this, String tipo, double limite, double cantidad) {
+    public boolean nuevaOperacion(Agente this, String tipo, double limite, double cantidad) throws FileNotFoundException {
         switch (tipo) {
             case "compra":
                 if (compra == null) {
-                    compra = new Operacion(tipo, limite, cantidad);       
+                    compra = new Operacion(tipo, limite, cantidad,broker,this);       
                 }else{
                     System.out.println("Ya existe una operacion de compra para el agente " + getNombre());
                     return false;
@@ -37,7 +43,7 @@ public class Agente {
                 break;
             case "venta":
                 if(venta == null){
-                    venta = new Operacion(tipo,limite,cantidad);    
+                    venta = new Operacion(tipo,limite,cantidad,broker,this);    
                 }
                 else{
                     System.out.println("Ya existe una operacion de venta para el agente" + getNombre());
@@ -73,6 +79,16 @@ public class Agente {
     public void setSaldo(double saldo) {
         this.saldo = saldo;
     }
+
+    public double getCantidad() {
+        return cantidad;
+    }
+
+    public void setCantidad(double cantidad) {
+        this.cantidad = cantidad;
+    }
+    
+    
 
     public Operacion getCompra() {
         return compra;

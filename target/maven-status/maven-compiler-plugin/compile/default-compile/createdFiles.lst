@@ -4,7 +4,9 @@ model\ListaAgentes.class
 controller\MainFrameAgentController$1.class
 model\Agente.class
 controller\MainFrameOperationController.class
+controller\MainFrameAgentController$2.class
 view\MainFrame.class
+controller\MainFrameOperationController$3.class
 main\PspHilosBroker.class
 model\PersistenciaDatos.class
 model\Operacion.class

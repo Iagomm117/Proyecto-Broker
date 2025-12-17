@@ -4,6 +4,7 @@ import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
 import javax.swing.DefaultListModel;
 import javax.swing.JPanel;
+import javax.swing.event.ChangeListener;
 import model.Agente;
 import org.jfree.chart.ChartPanel;
 
@@ -17,7 +18,7 @@ public class MainFrame extends javax.swing.JFrame {
      * Creates new form MainFrame
      */
     private static DefaultListModel modeloAgentes = new DefaultListModel();
-
+    
     public MainFrame() throws FileNotFoundException {
         initComponents();
     }
@@ -234,23 +235,27 @@ public class MainFrame extends javax.swing.JFrame {
     public void addAgenteButtonActionListener(ActionListener al) {
         this.addAgenteButton.addActionListener(al);
     }
-
-    public JPanel panelGrafico(){
+    
+    public void addVentanaChangeListener(ChangeListener cl) {
+        this.ventanasTabbedPane.addChangeListener(cl);
+    }
+    
+    public JPanel panelGrafico() {
         return this.graficaPanel;
     }
-
+    
     public void addSaveButtonActionListener(ActionListener al) {
         this.saveButton.addActionListener(al);
     }
     
-    public void addTipoComboBoxActionListener(ActionListener al){
+    public void addTipoComboBoxActionListener(ActionListener al) {
         this.tipoComboBox.addActionListener(al);
     }
-
+    
     public void statusSaveButton(boolean bol) {
         this.saveButton.setEnabled(bol);
     }
-
+    
     public void statusSpinners(boolean bol) {
         this.precioLabel.setVisible(bol);
         this.precioSpinner.setVisible(bol);
@@ -258,51 +263,60 @@ public class MainFrame extends javax.swing.JFrame {
         this.cantidadLabel.setVisible(bol);
     }
     
-    public void setTextCompraLabel(String texto){
+    public void setTextCompraLabel(String texto) {
         this.compraLabel.setText(texto);
     }
     
-    public void setTextVentaLabel(String texto){
+    public void setTextVentaLabel(String texto) {
         this.ventaLabel.setText(texto);
     }
-
+    
     public String getCantidadSpinnerValeu() {
         return this.cantidadSpinner.getValue().toString();
     }
-
+    
     public String getPrecioSpinnerValue() {
         return this.precioSpinner.getValue().toString();
     }
-
+    
     public void addItemComboBox(String item) {
         this.agentesComboBox.addItem(item);
     }
-
+    
     public String getAgentesComboBoxContent() {
         return this.agentesComboBox.getItemAt(agentesComboBox.getSelectedIndex());
     }
-
+    
     public String getTipoComboBoxContent() {
         return this.tipoComboBox.getItemAt(tipoComboBox.getSelectedIndex());
     }
-
+    
     public int getTipoComboBoxSelection() {
         return this.tipoComboBox.getSelectedIndex();
     }
-
+    
     public String getTextUsuarioTextField() {
         return this.usuarioTextField.getText();
     }
-
+    
     public String getSaldoSpinner() {
         return this.saldoSpinner.getValue().toString();
     }
-
+    
     public void addListItemAgente(Agente agente) {
         modeloAgentes.addElement(agente.toString());
         this.agenteList.setModel(modeloAgentes);
     }
 
+    public void clearAgentestComboBox() {
+        this.agentesComboBox.removeAllItems();
+    }
+    
+    public void clearListItemAgente(){
+        modeloAgentes.clear();
+        this.agenteList.setModel(modeloAgentes);
+    }
+    
     public int getVentanaTabbedPane() {
         if (this.ventanasTabbedPane.getSelectedIndex() < 0) {
         }

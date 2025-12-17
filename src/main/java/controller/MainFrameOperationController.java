@@ -2,10 +2,13 @@ package controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileNotFoundException;
+import javax.swing.JOptionPane;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import model.Broker;
 import model.Operacion;
 import model.PersistenciaDatos;
-import org.jfree.ui.action.ActionDowngrade;
 import view.MainFrame;
 
 /**
@@ -17,28 +20,35 @@ public class MainFrameOperationController {
     private MainFrame view;
     private Broker model;
 
-    public MainFrameOperationController(MainFrame view, Broker model) {
+    public MainFrameOperationController(MainFrame view, Broker model) throws FileNotFoundException {
         this.view = view;
         this.model = model;
-        initAgentesComboBoxItems();
+        this.view.addVentanaChangeListener(this.initComponents());
         this.view.addSaveButtonActionListener(this.setSaveButtonActionListener());
         this.view.addTipoComboBoxActionListener(this.setTipoComboBoxActionListener());
         view.statusSaveButton(false);
         view.statusSpinners(false);
     }
 
-    private void initAgentesComboBoxItems() {
+    private void initAgentesComboBoxItems() throws FileNotFoundException {
+        model = PersistenciaDatos.leerDatos();
+        view.clearAgentestComboBox();
         for (int i = 0; i < model.getAgentes().getSize(); i++) {
             view.addItemComboBox(model.getAgentes().getAgente(i).toString());
-            if (model.getAgentes().getAgente(i).getCompra() != null) {
-                view.setTextCompraLabel("Ya tiene unha operacion de compra existente");
-            } else if (model.getAgentes().getAgente(i).getVenta() != null) {
-                view.setTextVentaLabel("Ya tiene unha operacion de venta existente");
-            } else {
-                view.setTextCompraLabel("");
-                view.setTextVentaLabel("");
-            }
         }
+    }
+
+    private ChangeListener initComponents() {
+        ChangeListener cl = new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+                try {
+                    initAgentesComboBoxItems();
+                } catch (FileNotFoundException ex) {
+                }
+            }
+        };
+        return cl;
     }
 
     private ActionListener setTipoComboBoxActionListener() {
@@ -56,9 +66,7 @@ public class MainFrameOperationController {
                     view.statusSpinners(true);
 
                 }
-                initAgentesComboBoxItems();
             }
-
         };
         return al;
     }
@@ -70,16 +78,28 @@ public class MainFrameOperationController {
                 if (view.getTipoComboBoxSelection() == 1) {
                     for (int i = 0; i < model.getAgentes().getSize(); i++) {
                         if (model.getAgentes().getAgente(i).toString().equalsIgnoreCase(view.getAgentesComboBoxContent())) {
-                            model.getAgentes().getAgente(i).setCompra(new Operacion("compra", Double.parseDouble(view.getPrecioSpinnerValue()), Double.parseDouble(view.getCantidadSpinnerValeu())));
+                            if (model.getAgentes().getAgente(i).getCompra() == null) {
+                                model.getAgentes().getAgente(i).setCompra(new Operacion("compra", Double.parseDouble(view.getPrecioSpinnerValue()), Double.parseDouble(view.getCantidadSpinnerValeu()),model,model.getAgentes().getAgente(i)));
+                                JOptionPane.showMessageDialog(view, "Operacion creada con exito");
+                                break;
+                            } else {
+                                JOptionPane.showMessageDialog(view, "Ya tiene unha operacion de compra existente");
+                                break;
+                            }
 
-                            break;
                         }
                     }
                 } else if (view.getTipoComboBoxSelection() == 2) {
                     for (int i = 0; i < model.getAgentes().getSize(); i++) {
                         if (model.getAgentes().getAgente(i).toString().equalsIgnoreCase(view.getAgentesComboBoxContent())) {
-                            model.getAgentes().getAgente(i).setCompra(new Operacion("venta", Double.parseDouble(view.getPrecioSpinnerValue()), Double.parseDouble(view.getCantidadSpinnerValeu())));
-                            break;
+                            if (model.getAgentes().getAgente(i).getVenta() == null) {
+                                model.getAgentes().getAgente(i).setVenta(new Operacion("venta", Double.parseDouble(view.getPrecioSpinnerValue()), Double.parseDouble(view.getCantidadSpinnerValeu()),model,model.getAgentes().getAgente(i)));
+                                JOptionPane.showMessageDialog(view, "Operacion creada con exito");
+                                break;
+                            } else {
+                                JOptionPane.showMessageDialog(view, "Ya tiene unha operacion de venta existente");
+                                break;
+                            }
                         }
                     }
                 }

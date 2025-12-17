@@ -6,6 +6,9 @@ package controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileNotFoundException;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import model.Agente;
 import model.Broker;
 import model.PersistenciaDatos;
@@ -18,20 +21,34 @@ import view.MainFrame;
 public class MainFrameAgentController {
 
     private final MainFrame view;
-    private final Broker model;
+    private Broker model;
 
     public MainFrameAgentController(MainFrame view, Broker model) {
         this.view = view;
         this.model = model;
-        this.initComponents();
+        this.view.addVentanaChangeListener(this.initComponents());
         this.view.addAgenteButtonActionListener(this.setAddAgentButtonActionListener());
     }
 
-    private void initComponents() {
+    private void init() throws FileNotFoundException {
+        model = PersistenciaDatos.leerDatos();
+        this.view.clearListItemAgente();
         for (int i = 0; i < model.getAgentes().getSize(); i++) {
             view.addListItemAgente(model.getAgentes().getAgente(i));
         }
 
+    }
+     private ChangeListener initComponents() {
+        ChangeListener cl = new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+                try {
+                    init();
+                } catch (FileNotFoundException ex) {
+                }
+            }
+        };
+        return cl;
     }
 
     private ActionListener setAddAgentButtonActionListener() {

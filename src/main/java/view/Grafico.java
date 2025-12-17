@@ -3,7 +3,6 @@ package view;
 import java.io.FileNotFoundException;
 import javax.swing.JComponent;
 import model.Broker;
-import model.PersistenciaDatos;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
@@ -52,7 +51,7 @@ public class Grafico extends JComponent{
    private JFreeChart createChart( final XYDataset dataset ) {
       return ChartFactory.createTimeSeriesChart(             
          "Grafico precio", 
-         "Segundos",              
+         "Hora",              
          "Precio",              
          dataset,             
          false,              
