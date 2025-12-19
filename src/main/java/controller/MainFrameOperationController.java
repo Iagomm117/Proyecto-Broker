@@ -30,6 +30,8 @@ public class MainFrameOperationController {
         view.statusSpinners(false);
     }
 
+    
+    //metodo que permite inicializar los datos del combo box
     private void initAgentesComboBoxItems() throws FileNotFoundException {
         model = PersistenciaDatos.leerDatos();
         view.clearAgentestComboBox();
@@ -38,6 +40,7 @@ public class MainFrameOperationController {
         }
     }
 
+    //metodo que permite que se generen los datos cada vez que se acceda a la pestaña
     private ChangeListener initComponents() {
         ChangeListener cl = new ChangeListener() {
             @Override
@@ -71,6 +74,7 @@ public class MainFrameOperationController {
         return al;
     }
 
+    //metodo para poder guardar las operaciones de cada agente, revisa si tiene una hecha
     private ActionListener setSaveButtonActionListener() {
         ActionListener al = new ActionListener() {
             @Override

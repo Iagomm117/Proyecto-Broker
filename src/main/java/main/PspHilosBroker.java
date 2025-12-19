@@ -17,10 +17,7 @@ import view.MainFrame;
  */
 public class PspHilosBroker {
 
-    public static void main(String[] args) throws FileNotFoundException {
-        //Añadir logica de compra/venta en broker -> Propio hilo/ Si alguien compra a x precio, se baja el precio del producto, si alguien compra el producto se sube el precio
-        //Se sube el precio cuando no queda cantidad y compra / sube el precio cuando se producen ventas   
-        
+    public static void main(String[] args) throws FileNotFoundException {       
         MainFrame view = new MainFrame();
         ListaAgentes agentes = new ListaAgentes();
         Broker broker = null;

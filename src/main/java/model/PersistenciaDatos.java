@@ -14,6 +14,8 @@ import java.io.Reader;
  */
 public class PersistenciaDatos {
 
+    
+    //metodo que guarda los datos del programa
     public static void guardarDatos(Broker model) {
         try {
             Gson gson = new Gson();
@@ -26,7 +28,8 @@ public class PersistenciaDatos {
             System.getLogger(PersistenciaDatos.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
         }
     }
-
+    
+    //metodo que permite recuperar los datos del archivo
     public static Broker leerDatos() throws FileNotFoundException {
         Gson gson = new Gson();
         Reader fichero = new FileReader("broker.json");

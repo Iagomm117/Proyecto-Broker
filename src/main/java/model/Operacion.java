@@ -9,7 +9,7 @@ public class Operacion implements Runnable {
     private String tipo;
     private double umbral; //Precio en el cual se quiera comprar o vender
     private double cantidad;
-    private transient Broker broker;
+    private transient Broker broker; //el transient se coloca para que no se guarde en el fichero de guardado
     private transient Agente agente;
     private boolean ejecucion;
     private transient Thread hiloEjecutor;
@@ -41,6 +41,7 @@ public class Operacion implements Runnable {
                             broker.setPrecio(precioBroker * 1.05);
                             broker.setCantidadOperacionesRealizadas(broker.getCantidadOperacionesRealizadas() + 1);
                             ejecucion = false;
+                            agente.setCompra(null);
                             System.out.println("Operacion de compra realizada con exito");
                             PersistenciaDatos.guardarDatos(broker);
 
@@ -55,6 +56,7 @@ public class Operacion implements Runnable {
                             broker.setPrecio(precioBroker * 0.95);
                             broker.setCantidadOperacionesRealizadas(broker.getCantidadOperacionesRealizadas() + 1);
                             System.out.println("Operacion de venta realizada con exito");
+                            agente.setVenta(null);
                             ejecucion = false;
                             PersistenciaDatos.guardarDatos(broker);
                         } else {
@@ -103,9 +105,11 @@ public class Operacion implements Runnable {
 
     public boolean ejecutarse(double precioBroker) {
         if (getTipo().equalsIgnoreCase("compra")) {
+            //se comprueba si vale la pena comprar
             if (precioBroker <= getUmbral()) {
                 return false;
             }
+            //se comprueba si vale la pena vender
         } else if (getTipo().equalsIgnoreCase("venta")) {
             if (precioBroker >= getUmbral()) {
                 return false;

@@ -15,6 +15,7 @@ import org.jfree.data.xy.XYDataset;
 /**
  *
  * @author iagom
+ * clase del grafico
  */
 public class Grafico extends JComponent{
     private final Broker broker;
@@ -23,6 +24,8 @@ public class Grafico extends JComponent{
         this.broker = broker;
         
     }
+    
+    //clase que genera el grafico 
     public ChartPanel crearChartPanel() {
         final XYDataset dataset = createDataset();
         final JFreeChart chart = createChart(dataset);
@@ -31,6 +34,8 @@ public class Grafico extends JComponent{
         chartPanel.setMouseZoomable(true, false);
         return chartPanel; 
     }
+    
+    //metodo que genera los datos del grafico
     private XYDataset createDataset( ) {
       final TimeSeries series = new TimeSeries( "Grafico de precios" );         
       Second actual = new Second( );         

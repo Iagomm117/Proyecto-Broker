@@ -21,6 +21,7 @@ public class MainFrameGraficoController {
         pintarGrafico();
     }
     
+    //metodo para poder pintar el grafico
     private void pintarGrafico() throws FileNotFoundException{
         JPanel graficaPanel = view.panelGrafico();
         Grafico grafico = new Grafico(model);

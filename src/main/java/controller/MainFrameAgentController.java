@@ -29,7 +29,9 @@ public class MainFrameAgentController {
         this.view.addVentanaChangeListener(this.initComponents());
         this.view.addAgenteButtonActionListener(this.setAddAgentButtonActionListener());
     }
-
+    
+    
+    //metodo para iniciar los datos
     private void init() throws FileNotFoundException {
         model = PersistenciaDatos.leerDatos();
         this.view.clearListItemAgente();
@@ -38,6 +40,8 @@ public class MainFrameAgentController {
         }
 
     }
+    
+    //metodo para que detecte si se cambio de pestaña, para que actualice los datos
      private ChangeListener initComponents() {
         ChangeListener cl = new ChangeListener() {
             @Override
@@ -51,6 +55,7 @@ public class MainFrameAgentController {
         return cl;
     }
 
+     //metodo para añadir un agente
     private ActionListener setAddAgentButtonActionListener() {
         ActionListener al = new ActionListener() {
             @Override
